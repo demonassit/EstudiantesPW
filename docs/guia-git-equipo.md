@@ -73,7 +73,5 @@ git push origin feature/nombre
 6. Se repite con cada integrante restante.
 7. **Entregable:** captura de pantalla del conflicto real (marcadores `<<<<<<<`) + explicación por escrito de qué lo causó y cómo lo resolvieron.
 
-**Rúbrica (10 pts, docente):**
-- Cada integrante resolvió al menos 1 conflicto real — 6
-- Evidencia con capturas de pantalla — 2
-- Reflexión escrita sobre la causa del conflicto — 2
+---
+La rúbrica de esta práctica la tiene tu docente por separado.
