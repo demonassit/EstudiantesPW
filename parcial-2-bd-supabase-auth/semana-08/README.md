@@ -12,5 +12,7 @@
 
 **Entregable:** backend con CRUD de usuarios funcionando contra BD local + peticiones de prueba documentadas (Thunder Client/Postman básico).
 
+**Archivos base:** `base/backend-usuarios/` — andamiaje vacío (`schema-usuarios.sql`, `db-local.js`, `models/`, `controllers/`, `routes/`) para el CRUD sobre PostgreSQL local. Instala `pg` y `bcryptjs` en tu backend real.
+
 ---
 La rúbrica de esta práctica la tiene tu docente por separado.
