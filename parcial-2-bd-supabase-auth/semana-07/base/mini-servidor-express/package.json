@@ -1,0 +1,12 @@
+{
+  "name": "mini-servidor-express",
+  "version": "1.0.0",
+  "description": "Mini-servidor de práctica (semana 7, MVC) — no es el proyecto real",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}

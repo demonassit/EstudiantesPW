@@ -12,5 +12,7 @@
 
 **Entregable:** mini-servidor reestructurado en MVC + diagrama de las 3 capas.
 
+**Archivos base:** `base/mini-servidor-express/` (carpetas `routes/`, `controllers/`, `models/` con andamiaje vacío).
+
 ---
 La rúbrica de esta práctica la tiene tu docente por separado.
