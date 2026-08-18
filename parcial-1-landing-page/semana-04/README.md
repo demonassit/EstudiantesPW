@@ -12,5 +12,7 @@
 
 **Entregable:** boceto HTML de 2-3 pantallas.
 
+**Archivos base:** `base/index.html`, `base/detalle.html`, `base/registro.html` (esqueleto HTML vacío, complétalos tú).
+
 ---
 La rúbrica de esta práctica la tiene tu docente por separado.

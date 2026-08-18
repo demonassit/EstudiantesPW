@@ -12,5 +12,7 @@
 
 **Entregable (CORTE 1, compartido):** landing page completa (HTML+CSS) navegable localmente + capturas en móvil y escritorio.
 
+**Archivos base:** `base/index.html`, `base/detalle.html`, `base/registro.html` (tu HTML de la semana 4 ya enlazado a `styles.css`) + `base/styles.css` (vacío, complétalo tú).
+
 ---
 La rúbrica de esta práctica la tiene tu docente por separado.
