@@ -2,9 +2,36 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Registrar Asistencia - CECyT 9</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <header>
+    <a href="detalle.html">&larr; Volver al taller</a>
+  </header>
 
+  <main>
+    <form class="formulario-registro" id="form-registro" novalidate>
+      <h1>Registrar asistencia</h1>
+
+      <label for="nombre">Nombre completo</label>
+      <input type="text" id="nombre" name="nombre" required>
+      <span class="error" id="error-nombre"></span>
+
+      <label for="boleta">Boleta (10 dígitos)</label>
+      <input type="text" id="boleta" name="boleta" required>
+      <span class="error" id="error-boleta"></span>
+
+      <label for="fecha">Fecha de asistencia (DD/MM/AAAA)</label>
+      <input type="text" id="fecha" name="fecha" placeholder="DD/MM/AAAA" required>
+      <span class="error" id="error-fecha"></span>
+
+      <button type="submit">Registrar</button>
+      <p class="mensaje-exito" id="mensaje-exito"></p>
+    </form>
+  </main>
+
+  <script src="validaciones.js"></script>
 </body>
 </html>

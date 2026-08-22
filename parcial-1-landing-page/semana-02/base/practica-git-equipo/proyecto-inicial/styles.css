@@ -1,0 +1,24 @@
+:root {
+  /* Variables de color compartidas del equipo — cada quien agrega la suya aquí */
+  --color-fondo: #f9fafb;
+  --color-texto: #1f2937;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, Arial, sans-serif;
+  background-color: var(--color-fondo);
+  color: var(--color-texto);
+}
+
+/* TODO (persona A, rama feature/header): reglas de header/nav */
+
+/* TODO (persona B, rama feature/catalogo): reglas de .catalogo/.tarjeta */
+
+/* TODO (persona C, rama feature/formulario): reglas de .contacto/.formulario */
+
+/* TODO (persona D, rama feature/footer): reglas de footer */

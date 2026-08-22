@@ -12,5 +12,7 @@
 
 **Entregable:** cable UTP funcional + reporte con fotos del proceso y prueba de continuidad.
 
+**Práctica complementaria (opcional, en equipo de 4):** `base/practica-git-equipo/` — practica ramas, fusión, un conflicto real y `git revert` sobre un mini sitio HTML+CSS. Ver su `guia-practica-git-equipo.md`.
+
 ---
 La rúbrica de esta práctica la tiene tu docente por separado.
