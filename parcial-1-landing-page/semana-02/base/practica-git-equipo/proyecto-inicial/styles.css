@@ -1,24 +1,38 @@
-:root {
-  /* Variables de color compartidas del equipo — cada quien agrega la suya aquí */
-  --color-fondo: #f9fafb;
-  --color-texto: #1f2937;
-}
-
 * {
   box-sizing: border-box;
+}
+
+:root {
 }
 
 body {
   margin: 0;
   font-family: system-ui, Arial, sans-serif;
-  background-color: var(--color-fondo);
-  color: var(--color-texto);
+  background-color: #f9fafb;
+  color: #1f2937;
 }
 
-/* TODO (persona A, rama feature/header): reglas de header/nav */
+header {
+  background-color: #0f172a;
+  color: #ffffff;
+  padding: 1.5rem 1rem;
+  text-align: center;
+}
 
-/* TODO (persona B, rama feature/catalogo): reglas de .catalogo/.tarjeta */
+header a {
+  color: #ffffff;
+  margin: 0 0.5rem;
+}
 
-/* TODO (persona C, rama feature/formulario): reglas de .contacto/.formulario */
+main {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 1.5rem 1rem;
+}
 
-/* TODO (persona D, rama feature/footer): reglas de footer */
+footer {
+  text-align: center;
+  padding: 1rem;
+  color: #6b7280;
+  font-size: 0.875rem;
+}

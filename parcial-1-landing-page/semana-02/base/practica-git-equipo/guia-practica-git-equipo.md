@@ -1,148 +1,155 @@
-# Práctica de Git en equipo — ramas, fusión, conflicto, pull y revert
+# Práctica de Git en equipo — landing page con roles, rama de QA y producción
 
-**Complementaria — no reemplaza la práctica oficial de esta semana** (ponchado de cable UTP). Es para el equipo de 4 personas del proyecto integrador.
+**Complementaria — no reemplaza la práctica oficial de esta semana** (ponchado de cable UTP, ver `README.md`). Es para el equipo de 4 personas del proyecto integrador.
 
 ## Objetivo
 
-Practicar, con un proyecto real (no un ejercicio de juguete), el ciclo completo de trabajo en equipo con Git: cada persona en su rama, subir y bajar cambios, fusionar, resolver un conflicto real, y **revertir** un cambio que resultó tener un error — todo antes de que les pase "de verdad" en una entrega que sí cuenta.
+Practicar, con un proyecto real (no un ejercicio de juguete), el ciclo completo de trabajo en equipo de una organización de software: cada persona en su propia rama con un rol real (2 desarrolladores, 1 líder de equipo, 1 diseñador/a), integración de todas las ramas en una rama de **QA** donde se prueba antes de tocar producción, resolución de conflictos reales, corrección de un error encontrado durante la integración, y por último la promoción de `qa` a `main` (producción) — todo antes de que les pase "de verdad" en una entrega que sí cuenta.
+
+## Roles y ramas
+
+| Persona | Rama | Pantalla / archivo que construye | Qué agrega |
+|---|---|---|---|
+| Desarrollador 1 | `dev1` | `index.html` — Catálogo de talleres | El contenido del catálogo (tarjetas de talleres) + su propia variable de acento en `:root` + su bloque de estilos al final de `styles.css` |
+| Desarrollador 2 | `dev2` | `detalle.html` — Detalle del taller | El contenido de detalle + bitácora de asistentes + su propia variable de acento en `:root` + su bloque de estilos |
+| Líder de equipo | `lider` | `registro.html` — Registro de asistencia | El formulario de registro + su propia variable de acento en `:root` + su bloque de estilos. **Además**, coordina la integración de las 4 ramas a `qa` y, cuando el QA aprueba, el paso de `qa` a `main` |
+| Diseñador/a | `dis` | `styles.css` (base) | El reset, la tipografía, el layout general (`header`/`main`/`footer`), la variable de marca `--color-primario` y el responsive de móvil |
+
+**Ramas del proyecto:** `main` (producción) ← `qa` (integración y pruebas) ← `dev1` / `dev2` / `lider` / `dis` (una por persona).
+
+```
+dev1 ─┐
+dev2 ─┼─▶ qa ─▶ main
+lider ┤        (producción)
+dis  ─┘
+```
+
+## Por qué esto genera un conflicto real (a propósito)
+
+Los 4 arrancan del mismo archivo `styles.css`, que trae un bloque `:root { }` vacío. Cada rol agrega **una sola variable propia** dentro de ese mismo bloque, y también agrega su propia sección de reglas CSS al final del archivo. Como los 4 parten de la misma versión y trabajan en paralelo, **quien integre su rama después de que ya se integró otra persona (sin haber hecho `pull` de lo último) va a chocar de verdad** — no es un conflicto inventado, es justo lo que le pasa a cualquier equipo cuando dos personas tocan el mismo archivo compartido al mismo tiempo.
 
 ## Antes de empezar
 
-1. Un integrante crea el repositorio del equipo (en GitHub/GitLab) y sube el contenido de `proyecto-inicial/` (`index.html` + `styles.css`) a la rama `main`.
-2. Los otros 3 integrantes lo clonan:
-
+1. El **líder** crea el repositorio del equipo (en GitHub/GitLab), sube el contenido de `proyecto-inicial/` (`index.html`, `detalle.html`, `registro.html`, `styles.css`) a `main`, y crea la rama `qa` a partir de `main` (queda igual a `main` por ahora).
+2. Los otros 3 integrantes clonan el repo:
    ```
    git clone <url-del-repo-del-equipo>
    ```
-
 3. Cada integrante configura su nombre y correo si no lo ha hecho antes:
-
    ```
    git config --global user.name "Tu Nombre"
    git config --global user.email "tu-correo@ejemplo.com"
    ```
 
-## Roles del equipo
-
-Repártanse estos 4 roles — cada uno trabaja en **una rama propia** y toca una sección distinta de `index.html` y `styles.css`:
-
-| Persona | Rama | Qué agrega |
-|---|---|---|
-| A | `feature/header` | Los links del menú en `<nav>` + estilos de `header`/`nav` (agrega su propia variable de color en `:root`) |
-| B | `feature/catalogo` | Tarjetas de talleres en `<main class="catalogo">` + estilos de `.catalogo`/`.tarjeta` |
-| C | `feature/formulario` | El formulario de contacto en `<section class="contacto">` + estilos de `.formulario` |
-| D | `feature/footer` | El contenido del `<footer>` + estilos de `footer` (agrega su propia variable de color en `:root`) |
-
 ## Paso a paso
 
-### 1. Crear tu rama
+### 1. Cada quien crea su rama desde `main`
 
 ```
 git checkout main
-git pull origin main          # SIEMPRE antes de crear una rama nueva
-git checkout -b feature/<tu-parte>
+git pull origin main
+git checkout -b dev1        # o dev2 / lider / dis, según tu rol
 ```
 
 ### 2. Trabajar con commits pequeños y frecuentes
 
-Haz **al menos 2 commits** por tarea (no uno solo gigante al final). Usa la convención `feat:`/`fix:`/`docs:`:
+Al menos 2 commits por persona (no uno solo gigante al final):
 
 ```
-git add index.html
-git commit -m "feat: agrega <lo que hiciste> en index.html"
+git add index.html            # o el/los archivo(s) de tu rol
+git commit -m "feat: agrega <lo que hiciste>"
 
 git add styles.css
-git commit -m "feat: estiliza <tu sección>"
+git commit -m "feat: estiliza <tu pantalla>"
 ```
 
 ### 3. Subir tu rama
 
 ```
-git push origin feature/<tu-parte>
+git push origin dev1          # o dev2 / lider / dis
 ```
 
-### 4. Antes de fusionar a `main`: bajar lo último
+### 4. El líder integra las 4 ramas en `qa`, una por una
 
-**Este paso es el que más se les va a olvidar, y es justo el que evita conflictos innecesarios.** Antes de fusionar tu rama, siempre:
+```
+git checkout qa
+git pull origin qa
+git merge dis      # primero el diseñador: pone la base de estilos
+git push origin qa
+
+git merge dev1     # aquí ya puede aparecer un conflicto real (ver abajo)
+# ... resolver si aparece, luego:
+git push origin qa
+
+git merge dev2     # mismo caso
+git merge lider     # mismo caso
+```
+
+### 5. Si aparece un conflicto — es normal, así se ve
+
+Cada integración (después de la primera) puede producir **dos** bloques en conflicto dentro de `styles.css`: el de las variables en `:root` y el de las secciones de estilo al final del archivo. Se ven así:
+
+```
+<<<<<<< HEAD
+... lo que ya estaba en qa ...
+=======
+... lo que trae tu rama ...
+>>>>>>> origin/tu-rama
+```
+
+**Cómo resolverlo:** en ambos casos las líneas de los dos lados son válidas — cada persona agregó su propia variable y su propia sección — así que se conservan **ambas**, se borran los marcadores `<<<<<<<`, `=======`, `>>>>>>>`, y se revisa que las llaves `{`/`}` sigan bien balanceadas (a veces queda una sola llave de cierre compartida entre las dos secciones, hay que dejar solo una).
+
+```
+git add styles.css
+git commit
+git push origin qa
+```
+
+### 6. Pruebas de QA sobre la rama `qa` (antes de tocar producción)
+
+Con las 4 ramas ya integradas en `qa`, todo el equipo revisa este checklist:
+
+- [ ] No queda ningún marcador `<<<<<<<`, `=======` ni `>>>>>>>` en ningún archivo.
+- [ ] Las 3 páginas (`index.html`, `detalle.html`, `registro.html`) cargan `styles.css`.
+- [ ] **Todos** los enlaces de navegación (`href="...html"`) apuntan a un archivo que sí existe en el repo.
+- [ ] Las 4 variables (`--color-primario` + las 3 de acento) están dentro de `:root`.
+- [ ] Las 3 páginas se ven bien en escritorio y en móvil (probar angostando la ventana o con las DevTools).
+
+### 7. Si el QA encuentra un error real: se corrige en la rama de origen, no directo en `qa`
+
+Quien encuentre el error lo reporta a quien construyó esa pantalla. Esa persona:
+
+```
+git checkout dev1        # su propia rama (la que le corresponda)
+# corrige el archivo
+git add <archivo>
+git commit -m "fix: corrige <el error que reporto QA>"
+git push origin dev1
+```
+
+El líder vuelve a integrar esa rama en `qa` (`git merge dev1`), y el equipo repite el checklist del paso 6.
+
+### 8. Promover `qa` a `main` (producción)
+
+Solo cuando el checklist del paso 6 pasa al 100%:
 
 ```
 git checkout main
 git pull origin main
-```
-
-Si alguien más ya fusionó su rama, esto trae sus cambios a tu copia local **antes** de que intentes subir la tuya.
-
-### 5. Fusionar tu rama a `main`
-
-```
-git merge feature/<tu-parte>
+git merge qa
 git push origin main
 ```
 
-(En un flujo real con GitHub, esto se haría con un Pull Request + revisión de 1 compañero antes del merge — si su equipo ya sabe usar PRs, hagan eso en vez de `merge` local.)
+Esto simula el paso real de "pasa las pruebas → se libera a producción".
 
-### 6. Si aparece un conflicto — es normal, así se ve
+## Entregable
 
-Si dos personas modificaron las mismas líneas (por ejemplo, A y D agregando cada uno su variable de color en el mismo bloque `:root`), `git merge` va a fallar con un mensaje como:
+- Captura de cada uno de los 3 conflictos reales (dev1, dev2, lider) ya resueltos.
+- Captura del error real encontrado durante el QA + de la corrección en la rama de origen.
+- Captura del checklist de QA aprobado (los 5 puntos en verde).
+- Captura del merge final de `qa` a `main`.
+- Un párrafo por integrante sobre su rol, su rama, y qué conflicto o error le tocó resolver.
+- `index.html`/`detalle.html`/`registro.html`/`styles.css` finales, sin marcadores de conflicto.
 
-```
-Auto-merging styles.css
-CONFLICT (content): Merge conflict in styles.css
-Automatic merge failed; fix conflicts and then commit the result.
-```
-
-Abre el archivo marcado y vas a ver algo así:
-
-```
-  --color-texto: #1f2937;
-<<<<<<< HEAD
-  --color-header: #0f172a;
-=======
-  --color-footer: #1e293b;
->>>>>>> origin/feature/footer
-}
-```
-
-**Cómo resolverlo:**
-1. Decide qué se queda — en este caso, **ambas** líneas son válidas (cada persona agregó su propia variable), así que se conservan las dos y se borran los marcadores `<<<<<<<`, `=======`, `>>>>>>>`.
-2. Guarda el archivo.
-3. `git add styles.css`
-4. `git commit` (sin `-m`, para que se abra el mensaje de merge por defecto, o con `-m "merge: resuelve conflicto en :root"`)
-5. `git push origin main`
-
-### 7. Si alguien detecta un error después de fusionar: usar `git revert`, no `git reset`
-
-Supongamos que después de fusionar el formulario de contacto, alguien nota que el botón "Enviar" quedó **fuera** de la etiqueta `<form>` (un error real, no cosmético — el formulario no se puede enviar así). Ya está en `main`, y probablemente alguien más ya bajó esos cambios. **No uses `git reset --hard`** — eso reescribe el historial y puede borrar el trabajo de tus compañeros. En equipo, la forma segura es:
-
-```
-git log --oneline          # busca el hash del commit que rompió algo
-git revert <hash-del-commit>
-git push origin main
-```
-
-`git revert` crea un **commit nuevo** que deshace los cambios de ese commit — el historial completo se conserva, nadie pierde nada, y es seguro aunque ya lo hayan descargado otros.
-
-**Importante — lo que `revert` NO hace:** deshace el commit **completo**, no solo la parte que estaba mal. Si ese commit también agregaba algo bueno (ej. el `<input>` del correo), el revert también se lo lleva. Por eso, después de revertir, normalmente hace falta un **commit nuevo** que agregue de vuelta la parte buena, ya corregida:
-
-```
-git checkout -b fix/formulario-contacto
-# corriges el HTML: el <button> ahora sí queda DENTRO del <form>
-git add index.html
-git commit -m "fix: corrige el formulario de contacto (el botón ya queda dentro del <form>)"
-git push origin fix/formulario-contacto
-# fusionar esta rama a main como en el paso 5
-```
-
-### 8. Verificación final
-
-Antes de dar por terminada la práctica, entre todos confirmen:
-- `index.html` abre en el navegador sin errores.
-- No queda ningún marcador `<<<<<<<`, `=======` o `>>>>>>>` en ningún archivo (búsquenlo con Ctrl+F o `grep -n "<<<<<<<" *`).
-- El bug que revirtieron ya no está, pero la parte buena de ese commit sí volvió (con el commit de corrección del paso 7).
-
-## Entregable (complementario, no forma parte de la rúbrica oficial de esta semana)
-
-- Captura de pantalla del conflicto real (con los marcadores `<<<<<<<`) y de cómo lo resolvieron.
-- Captura de la salida de `git revert` (o `git log` mostrando el commit de revert).
-- `index.html` y `styles.css` finales, funcionando, sin marcadores de conflicto.
-- Un párrafo por integrante: qué rama trabajó, qué conflicto o problema encontró (si le tocó), y cómo lo resolvió.
+---
+La rúbrica de esta práctica la tiene tu docente por separado.
