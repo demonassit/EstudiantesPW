@@ -12,7 +12,5 @@
 
 **Entregable:** mini-proyecto Next.js + Express de práctica (no es el proyecto real todavía) + tabla comparando lo hecho con lo que ya existe en el repo semilla.
 
-**Archivos base:** `base/mini-servidor-express/` (Express vacío, `npm install` y completa las rutas), `base/mini-proyecto-next/pages/practica/[id].js` (componente vacío).
-
 ---
 La rúbrica de esta práctica la tiene tu docente por separado.

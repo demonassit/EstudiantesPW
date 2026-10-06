@@ -12,7 +12,5 @@
 
 **Entregable:** login emite JWT + middleware de verificación protegiendo el CRUD + pruebas manuales de acceso con/sin token válido.
 
-**Archivos base:** `base/backend-jwt/` (middleware/controller/routes de JWT vacíos, extiende el login de la semana 10). El frontend con JWT se agrega hasta tener el backend listo (ver solución docente para el patrón).
-
 ---
 La rúbrica de esta práctica la tiene tu docente por separado.

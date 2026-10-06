@@ -12,7 +12,5 @@
 
 **Entregable (CORTE 2, compartido):** CRUD de usuarios + BD local y Supabase conectadas + login usuario/contraseña sin JWT funcionando, coordinado con el servidor concurrente de Distribuidos y las pruebas de integración de Pruebas de Software.
 
-**Archivos base:** `base/backend-auth/` (middleware/controller/routes de login vacíos) + `base/pagina-login/pages/login.js` (componente vacío).
-
 ---
 La rúbrica de esta práctica la tiene tu docente por separado.

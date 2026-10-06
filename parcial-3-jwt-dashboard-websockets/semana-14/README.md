@@ -12,7 +12,5 @@
 
 **Entregable:** login con captcha funcional + dashboard con al menos 2 consultas cruzadas mostradas.
 
-**Archivos base:** `base/backend-captcha/captcha.js` (andamiaje), `base/backend-dashboard/` (modelo/controlador/rutas vacíos), `base/frontend-dashboard/pages/dashboard.js` (componente vacío). "Cursos"/"bitácora" del enunciado = tablas reales `talleres`/`asistencias` del repo semilla.
-
 ---
 La rúbrica de esta práctica la tiene tu docente por separado.
