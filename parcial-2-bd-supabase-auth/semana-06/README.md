@@ -12,5 +12,12 @@
 
 **Entregable:** mini-proyecto Next.js + Express de práctica (no es el proyecto real todavía) + tabla comparando lo hecho con lo que ya existe en el repo semilla.
 
+**Material de esta semana (`base/`):**
+- `mini-proyecto-next/`: el **kit de front** que usarás hasta la semana 15. Ya trae `package.json`, todo el CSS (`styles/globals.css`), el menú (`pages/_app.js`, `components/Menu.js`), el proxy al backend (`next.config.js`) y las validaciones (`lib/validaciones.js`). **No los modifiques.**
+- Tú escribes `pages/index.js` y `pages/practica/[id].js` (vienen vacíos).
+- `mini-servidor-express/`: tú escribes tus 2 endpoints en `server.js`.
+- Para arrancar: `npm install` y `npm run dev` dentro de `mini-proyecto-next/`; `npm install` y `npm start` dentro de `mini-servidor-express/`.
+- Esta app es la única que usarás en el curso: cada semana copias encima los archivos nuevos de `base/mini-proyecto-next/`.
+
 ---
 La rúbrica de esta práctica la tiene tu docente por separado.

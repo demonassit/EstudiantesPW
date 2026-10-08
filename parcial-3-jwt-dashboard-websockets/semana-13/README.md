@@ -12,5 +12,9 @@
 
 **Entregable:** login emite JWT + middleware de verificación protegiendo el CRUD + pruebas manuales de acceso con/sin token válido.
 
+**Material de esta semana (`base/`):**
+- `backend-jwt/`: andamiaje vacío del login con JWT, el middleware y las rutas.
+- `mini-proyecto-next/`: Copia el contenido de `base/mini-proyecto-next/` encima de tu app (la misma desde la semana 6). Trae `pages/login.js` que ya guarda el token, `lib/fetchConToken.js` y el menú. Tú, en tu `pages/admin/usuarios.js`: cambia tus `fetch` por `fetchConToken` (sin `credentials`) y, si la respuesta es 401, manda a `/login`.
+
 ---
 La rúbrica de esta práctica la tiene tu docente por separado.

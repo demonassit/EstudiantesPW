@@ -12,5 +12,9 @@
 
 **Entregable:** login con captcha funcional + dashboard con al menos 2 consultas cruzadas mostradas.
 
+**Material de esta semana (`base/`):**
+- `backend-captcha/` y `backend-dashboard/`: andamiaje vacío. En `backend-dashboard/models/`, `dashboard.model.js` ya elige con `DB_MOTOR` (usa tu `motor.js` de la semana 9); tú escribes `dashboard.model.mysql.js` (local, obligatorio) y `dashboard.model.supabase.js` (para publicar).
+- `mini-proyecto-next/`: Copia el contenido de `base/mini-proyecto-next/` encima de tu app (la misma desde la semana 6). Trae `pages/login.js` con el captcha ya maquetado y el menú con «Dashboard». `pages/dashboard.js` trae las 2 tablas con sus encabezados; tú escribes `cargar()` (con `fetchConToken` y el 401) y las filas de cada tabla.
+
 ---
 La rúbrica de esta práctica la tiene tu docente por separado.

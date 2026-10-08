@@ -12,5 +12,9 @@
 
 **Entregable:** mini-servidor reestructurado en MVC + diagrama de las 3 capas.
 
+**Material de esta semana (`base/`):**
+- `mini-servidor-express/`: la estructura MVC vacía (rutas, controlador y modelo); tú la llenas.
+- `mini-proyecto-next/`: Copia el contenido de `base/mini-proyecto-next/` encima de tu app (la misma desde la semana 6). Trae `pages/mini-servidor.js` ya hecha, que lista y guarda mensajes con `GET /mensajes` y `POST /mensajes`, y el menú actualizado. Úsala para probar tu MVC: si tus endpoints funcionan, la página los muestra.
+
 ---
 La rúbrica de esta práctica la tiene tu docente por separado.

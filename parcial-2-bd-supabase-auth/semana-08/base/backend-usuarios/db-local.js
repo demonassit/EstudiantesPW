@@ -1,6 +1,6 @@
-const { Pool } = require('pg');
+const mysql = require('mysql2/promise');
 
-const pool = new Pool({
+const pool = mysql.createPool({
 
 });
 
