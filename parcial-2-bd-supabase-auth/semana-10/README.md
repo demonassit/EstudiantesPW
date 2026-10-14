@@ -14,6 +14,7 @@
 
 **Material de esta semana (`base/`):**
 - `backend-auth/`: andamiaje vacío del login, el middleware y las rutas.
+- **Antes del login, agrega a tu modelo de usuarios** (`models/usuarios.model.mysql.js` y `models/usuarios.model.supabase.js`) la función `buscarPorCorreoConHash(correo)`: busca un usuario por correo y lo devuelve **con** `contrasena_hash`, para que el login pueda compararla con `bcrypt.compare`. Las demás funciones del modelo nunca devuelven el hash; esta es la única excepción y solo la usa el login. Si no existe, el login no funciona.
 - `schema-completo-mysql.sql`: todas las tablas del proyecto en tu MySQL local y un administrador semilla (`admin@cecyt9.ipn.mx` / `CambiaEstaClave123`). Córrelo antes de proteger `/api/usuarios`; si no, no tendrás con qué usuario entrar.
 - `mini-proyecto-next/`: Copia el contenido de `base/mini-proyecto-next/` encima de tu app (la misma desde la semana 6). Trae `pages/login.js` ya hecha y el menú con «Cerrar sesión». Tú, en tu `pages/admin/usuarios.js`: al cargar, pregunta a `/api/sesion` si hay sesión y, si no, manda a `/login`; y agrega `credentials: 'include'` a todas tus peticiones.
 
