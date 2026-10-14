@@ -23,17 +23,22 @@ export default function MiniServidor() {
   async function crearMensaje(e) {
     e.preventDefault();
     setError('');
-    const res = await fetch('/mini/mensajes', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ texto }),
-    });
-    if (res.ok) {
-      setTexto('');
-      cargarMensajes();
-    } else {
-      const data = await res.json();
-      setError(`Error: ${data.error}`);
+    try {
+      const res = await fetch('/mini/mensajes', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ texto }),
+      });
+      if (res.ok) {
+        setTexto('');
+        cargarMensajes();
+      } else {
+        const data = await res.json();
+        setError(`Error: ${data.error}`);
+      }
+    } catch {
+      // Servidor apagado: el proxy de Next responde 500 sin JSON y res.json() falla.
+      setError('El mini-servidor no responde: arráncalo con npm start en el puerto 4000.');
     }
   }
 

@@ -2,6 +2,18 @@ import { useEffect, useState } from 'react';
 import { validarBoleta, validarContrasena, validarCorreo } from '../../lib/validaciones';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || '';
+const BACKEND_CAIDO = 'El backend no responde: revisa que esté corriendo (BACKEND_URL).';
+
+// Mensaje de error de una respuesta fallida. Si el backend está caído, el proxy de Next responde
+// 500 sin JSON y res.json() fallaría: en ese caso se muestra el código HTTP.
+async function leerError(res) {
+  try {
+    const data = await res.json();
+    return data.error || `HTTP ${res.status}`;
+  } catch {
+    return `el backend respondió ${res.status}`;
+  }
+}
 
 export default function AdminUsuarios() {
   const [usuarios, setUsuarios] = useState([]);
@@ -18,9 +30,14 @@ export default function AdminUsuarios() {
   async function cargarUsuarios() {
     try {
       const res = await fetch(`${API_URL}/api/usuarios`);
+      if (!res.ok) {
+        // Sin esto, un 500 ({ error }) llegaría a usuarios.map() y la página tronaría.
+        setMensaje(`Error al cargar usuarios: ${await leerError(res)}`);
+        return;
+      }
       setUsuarios(await res.json());
     } catch {
-      setMensaje('El backend no responde: revisa que esté corriendo (BACKEND_URL).');
+      setMensaje(BACKEND_CAIDO);
     }
   }
 
@@ -32,20 +49,23 @@ export default function AdminUsuarios() {
       setMensaje(`Error: ${error}`);
       return;
     }
-    const res = await fetch(`${API_URL}/api/usuarios`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ nombre, correo, contrasena, boleta }),
-    });
-    if (res.ok) {
-      setNombre('');
-      setCorreo('');
-      setContrasena('');
-      setBoleta('');
-      cargarUsuarios();
-    } else {
-      const data = await res.json();
-      setMensaje(`Error: ${data.error}`);
+    try {
+      const res = await fetch(`${API_URL}/api/usuarios`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ nombre, correo, contrasena, boleta }),
+      });
+      if (res.ok) {
+        setNombre('');
+        setCorreo('');
+        setContrasena('');
+        setBoleta('');
+        cargarUsuarios();
+      } else {
+        setMensaje(`Error: ${await leerError(res)}`);
+      }
+    } catch {
+      setMensaje(BACKEND_CAIDO);
     }
   }
 

@@ -18,10 +18,15 @@ export default function Login() {
   }, []);
 
   async function pedirCaptcha() {
-    const res = await fetch(`${API_URL}/api/captcha`);
-    const data = await res.json();
-    setCaptchaId(data.captchaId);
-    setPregunta(data.pregunta);
+    setRespuestaCaptcha('');
+    try {
+      const res = await fetch(`${API_URL}/api/captcha`);
+      const data = await res.json();
+      setCaptchaId(data.captchaId);
+      setPregunta(data.pregunta);
+    } catch {
+      setError('El backend no responde: revisa que esté corriendo (BACKEND_URL).');
+    }
   }
 
   async function iniciarSesion(e) {
@@ -32,19 +37,24 @@ export default function Login() {
       return;
     }
 
-    const res = await fetch(`${API_URL}/api/login`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ correo, contrasena, captchaId, respuestaCaptcha }),
-    });
+    try {
+      const res = await fetch(`${API_URL}/api/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ correo, contrasena, captchaId, respuestaCaptcha }),
+      });
 
-    const data = await res.json();
-    if (res.ok) {
-      localStorage.setItem('token', data.token);
-      router.push('/dashboard');
-    } else {
-      setError(data.error);
-      pedirCaptcha(); // el captcha es de un solo uso, se pide uno nuevo tras fallar
+      // Backend caído: el proxy de Next responde 500 sin JSON y res.json() lanza error (cae al catch).
+      const data = await res.json();
+      if (res.ok) {
+        localStorage.setItem('token', data.token);
+        router.push('/dashboard');
+      } else {
+        setError(data.error);
+        pedirCaptcha(); // el captcha es de un solo uso, se pide uno nuevo tras fallar
+      }
+    } catch {
+      setError('El backend no responde: revisa que esté corriendo (BACKEND_URL).');
     }
   }
 

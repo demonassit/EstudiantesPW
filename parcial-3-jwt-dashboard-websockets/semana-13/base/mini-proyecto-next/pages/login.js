@@ -18,18 +18,23 @@ export default function Login() {
       return;
     }
 
-    const res = await fetch(`${API_URL}/api/login`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ correo, contrasena }),
-    });
+    try {
+      const res = await fetch(`${API_URL}/api/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ correo, contrasena }),
+      });
 
-    const data = await res.json();
-    if (res.ok) {
-      localStorage.setItem('token', data.token);
-      router.push('/admin/usuarios');
-    } else {
-      setError(data.error);
+      // Backend caído: el proxy de Next responde 500 sin JSON y res.json() lanza error (cae al catch).
+      const data = await res.json();
+      if (res.ok) {
+        localStorage.setItem('token', data.token);
+        router.push('/admin/usuarios');
+      } else {
+        setError(data.error);
+      }
+    } catch {
+      setError('El backend no responde: revisa que esté corriendo (BACKEND_URL).');
     }
   }
 
