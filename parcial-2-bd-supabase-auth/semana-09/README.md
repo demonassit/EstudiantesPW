@@ -1,5 +1,7 @@
 # Semana 9 (19-23 oct) — Programación Web
 
+> **Esta semana (19-23 oct) trabajas con la actividad autónoma:** sigue `actividad-autonoma-front/GUIA-PASO-A-PASO.md` (también en .docx). Vas a programar en tu mini-proyecto las páginas de talleres, inscripción y perfil contra un backend ya hecho. Lo de abajo (CRUD de usuarios + Supabase) se trabaja cuando regrese tu docente.
+
 **Tipo:** Integradora · Práctica oficial 4
 
 **Tema oficial:** cierre de U2·AE2 (CRUD) + Práctica 4 "Desarrollo de páginas dinámicas con BD".
