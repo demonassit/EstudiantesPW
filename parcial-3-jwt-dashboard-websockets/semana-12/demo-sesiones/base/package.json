@@ -1,0 +1,18 @@
+{
+  "name": "demo-sesiones",
+  "version": "1.0.0",
+  "description": "Demo guiada de Programación Web: cómo funciona una sesión con cookie (express-session), expiración, opciones de la cookie, secuestro de sesión y 401 contra 403",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "probar": "node pruebas/probar.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^16.6.1",
+    "express": "^4.21.2",
+    "express-mysql-session": "^3.0.3",
+    "express-session": "^1.18.1",
+    "mysql2": "^3.24.6"
+  }
+}

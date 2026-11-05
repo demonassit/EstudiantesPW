@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Demo de sesiones</title>
+  <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+  <header>
+    <h1>Demo de sesiones · CECyT 9</h1>
+    <p>Abre <strong>F12</strong> y ten a la mano las pestañas <strong>Network</strong> (Red) y <strong>Application</strong> (Aplicación → Cookies).</p>
+  </header>
+
+  <main>
+    <section class="tarjeta" id="tarjeta-estado">
+      <h2>1 · ¿Quién soy para el servidor?</h2>
+      <p id="estado" class="estado sin-sesion">Sin sesión</p>
+      <p class="detalle">Lo que el JavaScript de esta página puede leer con <code>document.cookie</code>:</p>
+      <pre id="cookie-js">(vacío)</pre>
+      <button id="btn-refrescar" type="button">Volver a preguntar</button>
+    </section>
+
+    <section class="tarjeta">
+      <h2>2 · Iniciar sesión</h2>
+      <form id="form-login">
+        <label>Usuario
+          <select id="usuario">
+            <option value="ana">ana (alumno)</option>
+            <option value="luis">luis (alumno)</option>
+            <option value="admin">admin (administrador)</option>
+          </select>
+        </label>
+        <label>Contraseña
+          <input id="contrasena" type="password" value="ana12345" autocomplete="off">
+        </label>
+        <button type="submit">Entrar</button>
+      </form>
+      <p class="detalle">Los usuarios están en la tabla <code>usuarios</code> de MySQL. Contraseñas: <code>ana12345</code>, <code>luis12345</code> y <code>admin12345</code>.</p>
+    </section>
+
+    <section class="tarjeta">
+      <h2>3 · Pedirle cosas al servidor</h2>
+      <div class="botones">
+        <button type="button" data-metodo="POST" data-url="/api/visita">POST /api/visita</button>
+        <button type="button" data-metodo="GET" data-url="/api/perfil">GET /api/perfil</button>
+        <button type="button" data-metodo="GET" data-url="/api/admin/reporte">GET /api/admin/reporte</button>
+        <button type="button" data-metodo="POST" data-url="/api/logout" class="peligro">POST /api/logout</button>
+      </div>
+      <ol id="bitacora" class="bitacora" reversed></ol>
+    </section>
+
+    <section class="tarjeta">
+      <h2>4 · Lo que guarda el servidor</h2>
+      <p id="donde" class="estado-almacen">…</p>
+      <p class="detalle">Solo para la clase: un servidor real nunca muestra esto.</p>
+      <table>
+        <thead><tr><th>Sesión</th><th>Usuario</th><th>Visitas</th><th>Vence</th></tr></thead>
+        <tbody id="tabla-sesiones"><tr><td colspan="4">(sin sesiones)</td></tr></tbody>
+      </table>
+      <button id="btn-sesiones" type="button">Actualizar tabla</button>
+    </section>
+
+    <section class="tarjeta">
+      <h2>5 · Configuración actual (<code>config.js</code>)</h2>
+      <pre id="config">…</pre>
+    </section>
+  </main>
+
+  <script src="demo.js"></script>
+</body>
+</html>
