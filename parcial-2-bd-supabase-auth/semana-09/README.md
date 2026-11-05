@@ -2,6 +2,8 @@
 
 > **Esta semana (19-23 oct) trabajas con la actividad autónoma:** sigue `actividad-autonoma-front/GUIA-PASO-A-PASO.md` (también en .docx). Vas a programar en tu mini-proyecto las páginas de talleres, inscripción y perfil contra un backend ya hecho. Lo de abajo (CRUD de usuarios + Supabase) se trabaja cuando regrese tu docente.
 
+> **Probar tu backend de la semana 8 con Postman:** sigue `guia-postman-backend/GUIA-POSTMAN-PASO-A-PASO.md` (también en .docx). Paso a paso, pruebas tus rutas de talleres, asistencias y el CRUD de usuarios, y compruebas que tu backend sí guarda en tu base de datos.
+
 **Tipo:** Integradora · Práctica oficial 4
 
 **Tema oficial:** cierre de U2·AE2 (CRUD) + Práctica 4 "Desarrollo de páginas dinámicas con BD".
