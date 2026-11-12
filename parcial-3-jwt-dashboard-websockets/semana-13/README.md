@@ -8,6 +8,8 @@
 
 **Prerrequisitos:** semanas 11-12; login usuario/contraseña del Parcial 2.
 
+**Demo guiada en clase (antes de la integradora):** [De la sesión al JWT](demo-jwt/GUIA-DEMO-JWT.md) (también en .docx): trabajas en `demo-jwt/base/`, que es la demo de sesiones de la semana 12 ya terminada más la página `jwt.html`. Con tu docente programas, paso por paso, el login que firma el token, el middleware que lo verifica, 401 contra 403, la expiración y la renovación, y una lista negra para que cerrar sesión invalide el token. Comparas cada paso con la sesión y lo usas en tu matriz de riesgos.
+
 **Actividad:** emitir un JWT al hacer login exitoso; proteger las rutas del CRUD de usuarios con un middleware que verifique el token; manejar expiración y renovación básica.
 
 **Entregable:** login emite JWT + middleware de verificación protegiendo el CRUD + pruebas manuales de acceso con/sin token válido.

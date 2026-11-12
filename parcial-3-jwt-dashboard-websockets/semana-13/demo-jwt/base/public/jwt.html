@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Demo de JWT</title>
+  <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+  <header>
+    <h1>Demo de JWT · CECyT 9</h1>
+    <p>Abre <strong>F12</strong>: pestañas <strong>Network</strong> (Red), <strong>Application</strong> (Aplicación → Local Storage y Cookies) y <strong>Console</strong>.</p>
+    <p><a class="enlace" href="index.html">← Semana 12: la demo con sesión y cookie</a></p>
+  </header>
+
+  <main>
+    <section class="tarjeta">
+      <h2>1 · Tu token</h2>
+      <p id="estado" class="estado sin-sesion">Sin token</p>
+      <p class="detalle">El token que guarda esta página (en <code>localStorage</code>). Puedes editarlo o pegar otro y pulsar <strong>Usar este token</strong>.</p>
+      <textarea id="token" spellcheck="false" placeholder="(no hay token)"></textarea>
+      <div class="botones">
+        <button id="btn-usar" type="button">Usar este token</button>
+        <button id="btn-alterar" type="button">Alterar: rol → admin</button>
+        <button id="btn-borrar" type="button" class="peligro">Borrar token (solo navegador)</button>
+      </div>
+      <p class="leyenda detalle"><span class="jwt-cabecera">cabecera</span><span class="jwt-carga">payload</span><span class="jwt-firma">firma</span></p>
+      <p id="partes" class="jwt-partes">—</p>
+      <div class="dos-columnas">
+        <div><h3>Cabecera (decodificada)</h3><pre id="cabecera">—</pre></div>
+        <div><h3>Payload (decodificado)</h3><pre id="carga">—</pre></div>
+      </div>
+    </section>
+
+    <section class="tarjeta">
+      <h2>2 · Iniciar sesión con JWT</h2>
+      <form id="form-login">
+        <label>Usuario
+          <select id="usuario">
+            <option value="ana">ana (alumno)</option>
+            <option value="luis">luis (alumno)</option>
+            <option value="admin">admin (administrador)</option>
+          </select>
+        </label>
+        <label>Contraseña
+          <input id="contrasena" type="password" value="ana12345" autocomplete="off">
+        </label>
+        <button type="submit">Entrar (POST /api/jwt/login)</button>
+      </form>
+      <p class="detalle">Los mismos usuarios de la semana 12 (tabla <code>usuarios</code>): <code>ana12345</code>, <code>luis12345</code> y <code>admin12345</code>.</p>
+    </section>
+
+    <section class="tarjeta">
+      <h2>3 · Pedirle cosas al servidor</h2>
+      <p class="detalle">Cada petición manda <code>Authorization: Bearer &lt;token&gt;</code>. Lo pone <strong>este JavaScript</strong>, no el navegador.</p>
+      <div class="botones">
+        <button type="button" data-metodo="GET" data-url="/api/jwt/perfil">GET /api/jwt/perfil</button>
+        <button type="button" data-metodo="GET" data-url="/api/jwt/perfil" data-sin-token="si">GET /api/jwt/perfil SIN token</button>
+        <button type="button" data-metodo="GET" data-url="/api/jwt/admin/reporte">GET /api/jwt/admin/reporte</button>
+        <button type="button" data-metodo="POST" data-url="/api/jwt/refresh">POST /api/jwt/refresh</button>
+        <button type="button" data-metodo="POST" data-url="/api/jwt/logout" class="peligro">POST /api/jwt/logout</button>
+      </div>
+      <ol id="bitacora" class="bitacora" reversed></ol>
+    </section>
+
+    <section class="tarjeta">
+      <h2>4 · Lo que guarda el servidor</h2>
+      <p class="detalle">Solo para la clase: un servidor real nunca muestra esto.</p>
+      <p id="sesiones-mysql" class="estado-almacen">…</p>
+      <h3>Lista negra (tabla <code>tokens_revocados</code>)</h3>
+      <table>
+        <thead><tr><th>jti</th><th>Usuario</th><th>El token vence</th></tr></thead>
+        <tbody id="tabla-revocados"><tr><td colspan="3">(vacía)</td></tr></tbody>
+      </table>
+      <button id="btn-servidor" type="button">Actualizar</button>
+    </section>
+
+    <section class="tarjeta">
+      <h2>5 · Lo que puede leer el JavaScript de esta página</h2>
+      <p class="detalle">Si alguien lograra meter un script (XSS), esto es lo que podría robar.</p>
+      <p class="detalle"><code>localStorage.getItem('token')</code>:</p>
+      <pre id="ls-js">(vacío)</pre>
+      <p class="detalle"><code>document.cookie</code>:</p>
+      <pre id="cookie-js">(vacío)</pre>
+    </section>
+
+    <section class="tarjeta">
+      <h2>6 · Configuración actual (<code>config.js</code>)</h2>
+      <pre id="config">…</pre>
+    </section>
+  </main>
+
+  <script src="jwt.js"></script>
+</body>
+</html>
